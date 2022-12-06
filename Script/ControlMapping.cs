@@ -7,7 +7,8 @@ namespace mj.midi
     [CreateAssetMenu(fileName = "ControlMapping", menuName = "ScriptableObjects/ControlMapping")]
     public class ControlMapping : ScriptableObject
     {
-        public DeviceMapper GetDeviceMapper(string deviceName) => deviceMappers.FirstOrDefault(dm => dm.deviceName == deviceName);
+        public DeviceMapper GetDeviceMapper(DeviceType device) => deviceMappers.FirstOrDefault(dm => dm.device == device);
+        public ControlType GetControlType(DeviceType device, string name) => GetDeviceMapper(device).GetControlType(name);
 
         [SerializeField] private List<DeviceMapper> deviceMappers;
     }
@@ -15,13 +16,12 @@ namespace mj.midi
     [System.Serializable]
     public class DeviceMapper
     {
-        public string deviceName;
+        public DeviceType device;
         public ControlMapper GetControlMapper(string name) => controlMappers.FirstOrDefault(cp => cp.name == name);
+        public ControlType GetControlType(string name) => GetControlMapper(name).type;
         public void Regist(string name) => controlMappers.Add(new ControlMapper() { name = name });
         [SerializeField] private List<ControlMapper> controlMappers;
     }
-
-
 
     [System.Serializable]
     public class ControlMapper
@@ -29,7 +29,10 @@ namespace mj.midi
         public ControlType type;
         public string name;
     }
-
+    public enum DeviceType
+    {
+        nanoKONTROL2
+    }
     public enum ControlType
     {
         Knob1,

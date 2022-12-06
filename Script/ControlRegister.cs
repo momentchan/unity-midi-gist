@@ -7,7 +7,7 @@ namespace mj.midi
     public class ControlRegister : MonoBehaviour
     {
         [SerializeField] private ControlMapping mapping;
-        [SerializeField] private string targetDevice;
+        [SerializeField] private DeviceType targetDevice;
 
         private DeviceMapper dp;
         void Start()
