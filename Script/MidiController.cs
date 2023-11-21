@@ -26,7 +26,8 @@ namespace mj.midi
                     Debug.LogWarning($"{targetDevice} not found.");
                     return;
                 }
-                var users = FindObjectsOfType<MonoBehaviour>().OfType<IMidiUser>();
+
+                var users = FindObjectsByType<MonoBehaviour>(FindObjectsInactive.Include, FindObjectsSortMode.None).OfType<IMidiUser>();
 
                 midiDevice.onWillControlChange += (cc, value) =>
                 {
