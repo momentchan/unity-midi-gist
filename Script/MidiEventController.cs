@@ -43,8 +43,22 @@ namespace mj.midi
         public UnityEvent<float> actions;
     }
 
-    public class MidiEvent
+    public class MidiEvent : ISerializationCallbackReceiver
     {
+        [HideInInspector]
+        [SerializeField] private string name;
+
         public ControlType type;
+
+        public void OnBeforeSerialize()
+        {
+            name = type.ToString();
+        }
+
+        public void OnAfterDeserialize()
+        {
+            name = type.ToString();
+        }
+
     }
 }
