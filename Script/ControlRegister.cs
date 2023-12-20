@@ -45,8 +45,10 @@ namespace mj.midi
             {
                 dp.Regist(control.displayName);
                 Debug.Log($"Register {control.displayName}.");
+#if UNITY_EDITOR
                 EditorUtility.SetDirty(mapping);
                 AssetDatabase.SaveAssets();
+#endif
             }
             else
             {
